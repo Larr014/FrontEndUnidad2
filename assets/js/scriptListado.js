@@ -1,4 +1,4 @@
-import { obtenerPeliculas } from "./Promesas.js"
+import { eliminarPelicula, obtenerPeliculas } from "./Promesas.js"
 
 window.addEventListener("load",()=>{
     var peliculas = obtenerPeliculas()
@@ -15,12 +15,32 @@ window.addEventListener("load",()=>{
             filas += "<td>"+p.anio+"</td>"
             filas += "<td>"+p.valoracion+"</td>"
             filas += "<td>"+p.genero+"</td>"
-            filas += "<td>"+p.esMayor+"</td>"
+            filas += "<td>"+p.mayorEdad+"</td>"
+            filas += "<td><button id='mod"+ p.id +"'>Modificar</button></td>"
+            filas += "<td><button id='eli"+ p.id +"'>Eliminar</button></td>"
             filas += "</tr>"
         })
         console.log(filas)
         eTBody.innerHTML = filas;
-        
+        //
+        listado.forEach((p)=>{
+            let botonEliminar = document.getElementById("eli"+p.id);
+            botonEliminar.addEventListener("click",()=>{
+                if(confirm("Desea realmente eliminar la pelicula "+p.nombre+" ?")){
+                    console.log("Eliminaste")
+                    eliminarPelicula(p.id).then(()=>{
+                        console.log("Se logro eliminar")
+                        location.reload()
+                    }).catch((e)=>{
+                        console.log("No se pudo eliminar: "+e)
+                    })
+                }else{
+                    console.log("No eliminaste")
+                }
+            })
+
+        })
+        //
         
     })
 })
