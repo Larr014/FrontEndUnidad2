@@ -3,6 +3,7 @@ import { actualizarPelicula, obtenerPelicula } from "./Promesas.js";
 window.addEventListener("load",()=>{
     alert("LLegue")
     //Recuperar los parametros
+    //Material a revisar> https://concamilo.com/como-obtener-los-parametros-de-la-url-con-javascript/
     let valores = window.location.search;
     console.log(valores)
     //Creamos la instancia
