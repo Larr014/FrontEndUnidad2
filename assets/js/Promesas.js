@@ -1,5 +1,5 @@
 import { db } from "./Firebase.js";
-import { collection, addDoc, getDocs, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js"; 
+import { collection, addDoc, getDocs, deleteDoc, doc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore.js"; 
 export let agregarPelicula = async(pelicula)=>{
     //Algo que agregar
     const docRef = await addDoc(collection(db, "pelicula"),pelicula);
@@ -27,4 +27,26 @@ export let obtenerPeliculas = async()=>{
 
 export let eliminarPelicula = async(idPelicula)=>{
   await deleteDoc(doc(db, "pelicula", idPelicula));
+}
+
+export let obtenerPelicula = async (idPelicula)=>{
+
+  const docRef = doc(db, "pelicula", idPelicula);
+  const docSnap = await getDoc(docRef);
+  let pelicula = {
+    'id':docSnap.id,
+    'nombre':docSnap.data().nombre,
+    'director':docSnap.data().director,
+    'anio':docSnap.data().anio,
+    'valoracion':docSnap.data().valoracion,
+    'genero':docSnap.data().genero,
+    'mayorEdad':docSnap.data().mayorEdad
+  }
+  return pelicula;
+}
+export let actualizarPelicula = async (id,p)=>{
+  const docRef = await doc(db,"pelicula",id);
+  console.log("En promesas")
+  console.log(p);
+  updateDoc(docRef,{...p});
 }

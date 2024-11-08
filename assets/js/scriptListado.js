@@ -39,6 +39,12 @@ window.addEventListener("load",()=>{
                 }
             })
 
+            let botonActualizar = document.getElementById("mod"+p.id);
+            botonActualizar.addEventListener("click",()=>{
+                alert("Vamos a redireccionar con el id"+p.id);
+                window.location.href = "/actualizar.html?id="+p.id;
+            })
+
         })
         //
         
